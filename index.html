@@ -1,79 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>My AI Chat</title>
-  <style>
-    body {
-      font-family: Arial;
-      background: #0f172a;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    #chat {
-      width: 400px;
-      height: 500px;
-      border: 1px solid #333;
-      padding: 10px;
-      overflow-y: auto;
-      background: #1e293b;
-    }
-    input, button {
-      padding: 10px;
-      margin-top: 10px;
-    }
-  </style>
+  <title>My AI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <h1>My AI 🤖</h1>
-  <div id="chat"></div>
-
-  <input type="text" id="userInput" placeholder="Type a message..." />
+  <h1>My AI Chatbot</h1>
+  <div id="chatbox"></div>
+  <input id="userInput" placeholder="Ask me anything..." />
   <button onclick="sendMessage()">Send</button>
 
-  <script>
-    const chat = document.getElementById("chat");
-
-    function addMessage(sender, text) {
-      const msg = document.createElement("p");
-      msg.innerHTML = "<b>" + sender + ":</b> " + text;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const userText = input.value;
-
-      if (!userText) return;
-
-      addMessage("You", userText);
-      input.value = "";
-
-      // ⚠️ Replace with your API key
-      const API_KEY = "YOUR_API_KEY_HERE";
-
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + API_KEY
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [{ role: "user", content: userText }]
-        })
-      });
-
-      const data = await response.json();
-      const aiReply = data.choices[0].message.content;
-
-      addMessage("AI", aiReply);
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
